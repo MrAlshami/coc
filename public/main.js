@@ -1,5 +1,3 @@
-const e = require("express");
-
 let socket = null;
 let gameSessionId = 0;
 
@@ -12,8 +10,8 @@ function setUsername(username) {
 }
 
 function postJSON(url, obj) {
-    return fetch(url, {
-        method: "POST",
+    return fetch(url, { 
+        method: "POST", 
         body: JSON.stringify(obj),
         headers: {
             "Content-Type": "application/json",
@@ -213,12 +211,12 @@ function showPage(pageId) {
         collectionButton.classList.add("navbar_button_active");
         playersButton.classList.remove("navbar_button_active");
         scanButton.classList.remove("navbar_button_active");
-
+        
     } else if (pageId === PAGE.playerList) {
         collectionButton.classList.remove("navbar_button_active");
         playersButton.classList.add("navbar_button_active");
         scanButton.classList.remove("navbar_button_active");
-
+        
     } else if (pageId === PAGE.scan) {
         scanButton.classList.add("navbar_button_active");
         playersButton.classList.remove("navbar_button_active");
@@ -255,7 +253,7 @@ async function showPlayerSelection() {
 
 function createCardElement(cardData, isSelectable, callback) {
     const cardElement = document.querySelector(".card_template").content.cloneNode(true);
-
+        
     cardElement.querySelector(".card_image").src = `/res/${cardData.image}`;
     cardElement.querySelector(".card_name").textContent = cardData.name;
 
@@ -330,9 +328,9 @@ function onScanNewCard() {
 }
 
 async function scanCard() {
-    // const output = document.querySelector(".output");
-    // output.textContent = JSON.stringify({ lol: 2 });
-    let isScanning = false; // Sperrflag für NFC-Scans
+   // const output = document.querySelector(".output");
+   // output.textContent = JSON.stringify({ lol: 2 });
+
     try {
         const ndef = new NDEFReader();
         await ndef.scan();
@@ -344,44 +342,30 @@ async function scanCard() {
         });
 
         ndef.addEventListener("reading", async ({ message, serialNumber }) => {
-            if (isScanning) {
-                return; // Verhindert das mehrfache Scannen
-            }
-            isScanning = true;
-            try {
+            const decoder = new TextDecoder();
+            const decodedData = decoder.decode(message.records[0].data);
+            console.log(message);
 
-                const decoder = new TextDecoder();
-                const decodedData = decoder.decode(message.records[0].data);
-                console.log(message);
-
-                const scanedCardResponse = await postJSON("/api/scancard/", {
-                    username: getUsername(),
-                    cardId: decodedData,
-                });
-                const scanResponse = await scanedCardResponse.json();
-                if (!scanResponse.scanOk) {
-                    showScanError();
-                } else {
-
-                    const cardDisplay = document.querySelector(".new_card");
-                    cardDisplay.innerHTML = "";
-
-                    const cardElement = createCardElement(scanResponse.card, false, null);
-                    cardDisplay.appendChild(cardElement);
-
-                    const scanSpinner = document.querySelector(".scan_spinner");
-                    scanSpinner.style.display = "none";
-
-                    const scanButton = document.querySelector(".scan_next_button");
-                    scanButton.style.display = "block";
-                }
-
-            } catch (error) {
-                console.error("Error during NFC scan:", error);
+            const scanedCardResponse = await postJSON("/api/scancard/", {
+                username: getUsername(),
+                cardId: decodedData,
+            });
+            const scanResponse = await scanedCardResponse.json();
+            if (!scanResponse.scanOk) {
                 showScanError();
-            } finally {
-                isScanning = false;
             }
+        
+            const cardDisplay = document.querySelector(".new_card");
+            cardDisplay.innerHTML = "";
+        
+            const cardElement = createCardElement(scanResponse.card, false, null);
+            cardDisplay.appendChild(cardElement);
+        
+            const scanSpinner = document.querySelector(".scan_spinner");
+            scanSpinner.style.display = "none";
+
+            const scanButton = document.querySelector(".scan_next_button");
+            scanButton.style.display = "block";
         });
 
     } catch (error) {
