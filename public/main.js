@@ -1,3 +1,5 @@
+const e = require("express");
+
 let socket = null;
 let gameSessionId = 0;
 
@@ -330,7 +332,11 @@ function onScanNewCard() {
 async function scanCard() {
     // const output = document.querySelector(".output");
     // output.textContent = JSON.stringify({ lol: 2 });
+    let isScanning = false; // Sperrflag für NFC-Scans
 
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
     try {
         const ndef = new NDEFReader();
         await ndef.scan();
@@ -359,19 +365,22 @@ async function scanCard() {
                 const scanResponse = await scanedCardResponse.json();
                 if (!scanResponse.scanOk) {
                     showScanError();
+                } else {
+
+                    const cardDisplay = document.querySelector(".new_card");
+                    cardDisplay.innerHTML = "";
+
+                    const cardElement = createCardElement(scanResponse.card, false, null);
+                    cardDisplay.appendChild(cardElement);
+
+                    const scanSpinner = document.querySelector(".scan_spinner");
+                    scanSpinner.style.display = "none";
+
+                    const scanButton = document.querySelector(".scan_next_button");
+                    scanButton.style.display = "block";
                 }
 
-                const cardDisplay = document.querySelector(".new_card");
-                cardDisplay.innerHTML = "";
-
-                const cardElement = createCardElement(scanResponse.card, false, null);
-                cardDisplay.appendChild(cardElement);
-
-                const scanSpinner = document.querySelector(".scan_spinner");
-                scanSpinner.style.display = "none";
-
-                const scanButton = document.querySelector(".scan_next_button");
-                scanButton.style.display = "block";
+                await sleep(2000);
 
             } catch (error) {
                 console.error("Error during NFC scan:", error);
