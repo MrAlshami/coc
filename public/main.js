@@ -348,8 +348,9 @@ async function scanCard() {
             output.textContent += message.records.length+ " the length\n";
             for (const record of message.records) {
                 output.textContent += JSON.stringify(record.data)+ "\n";
-                output.textContent += record.data+ "\n";
+                output.textContent += record.data.toString+ "\n";
             }
+            output.textContent += message.records[0].data.toString()+ "\n";
             console.log(message);
 
             const scanedCardResponse = await postJSON("/api/scancard/", {
