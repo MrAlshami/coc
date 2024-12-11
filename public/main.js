@@ -333,10 +333,6 @@ async function scanCard() {
     // const output = document.querySelector(".output");
     // output.textContent = JSON.stringify({ lol: 2 });
     let isScanning = false; // Sperrflag für NFC-Scans
-
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
     try {
         const ndef = new NDEFReader();
         await ndef.scan();
@@ -379,8 +375,6 @@ async function scanCard() {
                     const scanButton = document.querySelector(".scan_next_button");
                     scanButton.style.display = "block";
                 }
-
-                await sleep(2000);
 
             } catch (error) {
                 console.error("Error during NFC scan:", error);
