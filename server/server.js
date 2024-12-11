@@ -41,6 +41,7 @@ function getRandomGameCardStack(username) {
     cardModel.set("805E", { id: "805E", name: "Lurchus", image: "lurchus.jpg", strength: 100, speed: 9, size: 5, endurance: 8 });
     cardModel.set("80C7", { id: "80C7", name: "Frosti", image: "frosti.jpg", strength: 70, speed: 8, size: 100, endurance: 2 });
     cardModel.set("151Q", { id: "151Q", name: "Foxi", image: "foxi.jpg", strength: 40, speed: 1, size: 4, endurance: 100 });
+    cardModel.set("1A2B", { id: "1A2B", name: "Bulli", image: "bulli.jpg", strength: 100, speed: 100, size: 100, endurance: 100 });
 
     playerModel.set("Michel", { username: "Michel", password: "1234", websocketConnection: null, collection: [ "95M7", "805E" ] });
     playerModel.set("Besi", { username: "Besi", password: "1234", websocketConnection: null, collection: [ "80C7" ] });

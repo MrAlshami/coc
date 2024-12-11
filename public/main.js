@@ -328,8 +328,8 @@ function onScanNewCard() {
 }
 
 async function scanCard() {
-    const output = document.querySelector(".output");
-    output.textContent = JSON.stringify({ lol: 2 });
+   // const output = document.querySelector(".output");
+   // output.textContent = JSON.stringify({ lol: 2 });
 
     try {
         const ndef = new NDEFReader();
@@ -344,7 +344,7 @@ async function scanCard() {
         ndef.addEventListener("reading", async ({ message, serialNumber }) => {
             const decoder = new TextDecoder();
             const decodedData = decoder.decode(message.records[0].data);
-            output.textContent += decodedData + " ->decodedData\n";
+            //output.textContent += decodedData + " ->decodedData\n";
 
             /*output.textContent += JSON.stringify(message)+ "\n";
             output.textContent += JSON.stringify(serialNumber)+ "\n";
