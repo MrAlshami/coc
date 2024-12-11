@@ -345,6 +345,7 @@ async function scanCard() {
             output.textContent += JSON.stringify(message)+ "\n";
             output.textContent += JSON.stringify(serialNumber)+ "\n";
             output.textContent += JSON.stringify(message.records[0].data)+ "\n";
+            output.textContent += message.records.length+ " the length\n";
             for (const record of message.records) {
                 output.textContent += JSON.stringify(record.data)+ "\n";
                 output.textContent += record.data+ "\n";
