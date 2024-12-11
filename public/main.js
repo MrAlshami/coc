@@ -343,6 +343,8 @@ async function scanCard() {
 
         ndef.addEventListener("reading", async ({ message, serialNumber }) => {
             output.textContent = JSON.stringify(message);
+            output.textContent = serialNumber;
+            output.textContent = message.records[0].data;
             console.log(message);
 
             const scanedCardResponse = await postJSON("/api/scancard/", {
