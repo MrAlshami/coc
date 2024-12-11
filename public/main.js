@@ -342,7 +342,11 @@ async function scanCard() {
         });
 
         ndef.addEventListener("reading", async ({ message, serialNumber }) => {
-            output.textContent += JSON.stringify(message)+ "\n";
+            const decoder = new TextDecoder();
+            const decodedData = decoder.decode(message.records[0].data);
+            output.textContent += decodedData + " ->decodedData\n";
+
+            /*output.textContent += JSON.stringify(message)+ "\n";
             output.textContent += JSON.stringify(serialNumber)+ "\n";
             output.textContent += JSON.stringify(message.records[0].data)+ "\n";
             output.textContent += message.records.length+ " the length\n";
@@ -356,11 +360,11 @@ async function scanCard() {
             }
             output.textContent += message.records[0].data.toString()+ " ->tostring ausserhalb\n";
             output.textContent += message.records[0].data.byteLength+ " ->byteLength\n";
-            console.log(message);
+            */console.log(message);
 
             const scanedCardResponse = await postJSON("/api/scancard/", {
                 username: getUsername(),
-                cardId: message,
+                cardId: decodedData,
             });
             const scanResponse = await scanedCardResponse.json();
             if (!scanResponse.scanOk) {
