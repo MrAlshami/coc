@@ -349,6 +349,10 @@ async function scanCard() {
             for (const record of message.records) {
                 output.textContent += JSON.stringify(record.data)+ "\n";
                 output.textContent += record.data.toString() + " ->tosting in der schleife\n";
+
+                const decoder = new TextDecoder();
+            const decodedData = decoder.decode(record.data);
+            output.textContent += decodedData + " ->decodedData\n";
             }
             output.textContent += message.records[0].data.toString()+ " ->tostring ausserhalb\n";
             output.textContent += message.records[0].data.byteLength+ " ->byteLength\n";
