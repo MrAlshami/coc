@@ -1,0 +1,254 @@
+@font-face {
+    font-family: "StormGust";
+    src: url("/res/storm_gust.otf");
+}
+@font-face {
+    font-family: "Invert";
+    src: url("/res/The Invert Stencil.ttf");
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    color: white;
+    font-family: sans-serif;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
+    height: 100vh;
+    width: 100vw;
+    background-color: #1A237E;
+}
+
+h2 {
+    margin: 10px 0 16px 0;
+}
+
+.game_title {
+    position: relative;
+    font-family: "StormGust";
+    font-size: 50px;
+    color: black;
+}
+.game_title:before {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    content: "Clash of Champions";
+    font-size: 50px;
+    color: #EEFF41;
+}
+
+.navbar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    background-color: #283593;
+    border-top: 2px solid #5C6BC0;
+    padding: 10px;
+}
+
+.navbar_button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    padding: 6px 0 8px 0;
+}
+
+.navbar_button_img {
+    width: 26px;
+}
+
+.navbar_button_active {
+    background-color: #3F51B5;
+}
+
+.page_content {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.subpage_content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px 0;
+}
+
+.page_login {
+    padding: 40px 0 0 0;
+}
+
+.login_form {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #3F51B5;
+    display: flex;
+    flex-direction: column;
+    gap: 10px 0;
+    border-radius: 10px;
+    padding: 20px;
+    width: 80%;
+}
+
+.login_button {
+    background-color: #EEFF41;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 12px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.card_collection {
+    display: flex;
+    flex-direction: column;
+    gap: 16px 0;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: #FDD835;
+    border: 1px solid black;
+    border-radius: 10px;
+    position: relative;
+}
+
+.card_attribute {
+    padding: 6px 6px;
+    text-align: left;
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    font-size: 20px;
+    margin: 2px 0 2px 0;
+    color: black
+}
+
+.card_attribute > span {
+    float: right;
+    font-weight: bold;
+    color: black;
+}
+
+.card_name {
+    top: 20px;
+    left: 30px;
+    position: absolute;
+    font-family: "StormGust";
+    font-size: 50px;
+    color: black;
+    transform: rotate(-10deg);
+}
+
+.card_image {
+    width: 100%;
+}
+
+.player_list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px 0;
+}
+
+.player {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0 10px;
+}
+
+.player_icon {
+    background-color: #3949AB;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.player_icon > img {
+    display: block;
+    margin: auto;
+    margin-top: 6px;
+}
+
+.invite_button {
+    background-color: #EEFF41;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.popup_content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px 0;
+    position: absolute;
+    top: 30vh;
+    width: calc(100% - 40px);
+    left: 20px;
+    padding: 20px;
+    background-color: #1A237E;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.spinner {
+    display: flex;
+    flex-direction: row;
+    gap: 0 10px;
+    align-items: center;
+}
+
+.spinner_img {
+    width: 36px;
+    height: 36px;
+    animation-name: spinner_animation;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+    animation-timing-function: linear;
+}
+
+.passive_button {
+    background-color: #3949AB;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 12px;
+    font-size: 16px;
+    color: white;
+}
+
+.action_button {
+    background-color: #EEFF41;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+@keyframes spinner_animation {
+    from { transform: rotate(360deg) }
+    to { transform: rotate(0deg) }
+}

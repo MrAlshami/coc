@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clash of Champions</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+    <script src="/main.js" defer></script>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <main>
+        <div class="page_content">
+            <div class="page_login">
+                <form class="login_form">
+                    <h1 class="game_title">Clash of Champions</h1>
+                    <label for="login-username">Username</label>
+                    <input id="login-username" type="text" name="username">
+            
+                    <label for="login-password">Password</label>
+                    <input id="login-password" type="password" name="password">
+        
+                    <button class="login_button" type="submit">Login</button>
+                </form>
+            </div>
+
+            <div class="page_collection" style="display: none;">
+                <h1 class="game_title">Clash of Champions</h1>
+                <h2>Collection</h2>
+                <div class="card_collection"></div>
+            </div>
+
+
+            <div class="page_players" style="display: none;">
+                <h1 class="game_title">Clash of Champions</h1>
+                <h2>Players</h2>
+                <div class="player_list"></div>
+            </div>
+
+            <div class="page_game" style="display: none;">
+                <h2>Game Session</h2>
+                <div class="subpage_content">
+                    <p class="message_my_turn">Pick an attribute from the card below</p>
+                    <p class="message_other_turn">Waiting for the opponent to pick an attribute...</p>
+                    <div class="current_card"></div>
+                    <button class="passive_button" onclick="onCancelGameClick();">Leave game</button>
+                </div>
+            </div>
+
+            <div class="page_scan" style="display: none;">
+                <h2>Scan Card</h2>
+                <div class="subpage_content">
+                    <textarea class="output" style="width: 100%;" rows="10">Test</textarea>
+                    <p class="spinner scan_spinner"><img class="spinner_img" src="/res/spinner_icon.svg" alt="Spinner">Scanning for card...</p>
+                    <div class="new_card"></div>
+                    <button class="action_button scan_next_button" onclick="onScanNewCard();" style="display: none;">Scan new card</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="navbar">
+            <button class="navbar_button collection_button" onclick="onCollectionNavClick();">
+                <img class="navbar_button_img" src="/res/collection_icon.svg"/>
+                Collection
+            </button>
+            <button class="navbar_button players_button" onclick="onPlayerNavClick();">
+                <img class="navbar_button_img" src="/res/players_icon.svg"/>
+                Players
+            </button>
+            <button class="navbar_button scan_button" onclick="onScanCardClick();">
+                <img class="navbar_button_img" src="/res/add_icon.svg"/>
+                Scan Card
+            </button>
+        </div>
+    </main>
+
+    <div class="popup invite_popup" style="display: none;">
+        <div class="popup_content">
+            <h2 class="popup_title">Inviting player</h2>
+            <p class="spinner"><img class="spinner_img" src="/res/spinner_icon.svg" alt="Spinner">Waiting for player...</p>
+            <button class="passive_button" onclick="hideInvitePopup();">Cancel</button>
+        </div>
+    </div>
+
+    <div class="popup invite_request_popup" style="display: none;">
+        <div class="popup_content">
+            <h2 class="popup_title">Player invite</h2>
+            <p>Player <span class="invite_request_player_name">?</span> invites you to a game</p>
+            <button class="action_button" onclick="acceptInvite();">Accept</button>
+            <button class="passive_button" onclick="rejectInvite();">Reject</button>
+        </div>
+    </div>
+
+    <div class="popup game_canceled_popup" style="display: none;">
+        <div class="popup_content">
+            <h2 class="popup_title">Game canceled</h2>
+            <p>Game was canceled by one of the players.</p>
+            <button class="action_button" onclick="hideGameCanceledPopup();">Okay</button>
+        </div>
+    </div>
+
+    <div class="popup invite_reject_popup" style="display: none;">
+        <div class="popup_content">
+            <h2 class="popup_title">Invite rejected</h2>
+            <p>Game invite was rejected by other player.</p>
+            <button class="action_button" onclick="hideInviteRejectedPopup();">Okay</button>
+        </div>
+    </div>
+
+    <div class="popup game_result_popup" style="display: none;">
+        <div class="popup_content">
+            <h2 class="popup_title">Game result</h2>
+            <p class="game_result_msg"></p>
+            <button class="action_button" onclick="hideGameResultPopup();">Okay</button>
+        </div>
+    </div>
+
+    <div class="popup round_result_popup" style="display: none;">
+        <div class="popup_content">
+            <h2 class="popup_title">Round result</h2>
+            <p class="round_result_msg"></p>
+        </div>
+    </div>
+
+    <template class="player_item_template">
+        <div class="player">
+            <div class="player_icon">
+                <img src="/res/player_icon.svg" alt="Player Icon">
+            </div>
+            <p class="player_name"></p>
+            <button class="invite_button">Invite</button>
+        </div>
+    </template>
+
+    <template class="card_template">
+        <div class="card">
+            <div class="card_header">
+                <img class="card_image" src="" />
+                <p class="card_name"></p>
+            </div>
+            <button class="card_attribute card_attr_btn_0" disabled>Strength<span class="card_attr0"></span></button>
+            <button class="card_attribute card_attr_btn_1" disabled>Speed<span class="card_attr1"></span></button>
+            <button class="card_attribute card_attr_btn_2" disabled>Size<span class="card_attr2"></span></button>
+            <button class="card_attribute card_attr_btn_3" disabled>Endurance<span class="card_attr3"></span></button>
+        </div>
+    </template>
+</body>
+</html>
